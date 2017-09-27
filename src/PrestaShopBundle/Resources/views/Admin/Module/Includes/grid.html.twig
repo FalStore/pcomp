@@ -1,0 +1,18 @@
+<div id="modules-list-container-{{ id }}" class="row modules-list">
+  {% if app.request.attributes.get('_route') == 'admin_module_catalog_refresh' %}
+    {% for module in modules %}
+      {% include 'PrestaShopBundle:Admin/Module/Includes:card_grid.html.twig' with { 'module': module, 'origin': origin|default('none') } %}
+    {% endfor %}
+  {% endif %}
+  {% for module in modules %}
+    {% block addon_card %}
+      {% include 'PrestaShopBundle:Admin/Module/Includes:card_list.html.twig' with { 'module': module, 'origin': origin|default('none') } %}
+    {% endblock %}
+  {% endfor %}
+  {% block addon_search_card %}
+    {% if requireAddonsSearch is defined and requireAddonsSearch == true %}
+      {% include 'PrestaShopBundle:Admin/Module/Includes:card_grid_addons.html.twig'%}
+      {% include 'PrestaShopBundle:Admin/Module/Includes:card_list_addons.html.twig'%}
+    {% endif %}
+  {% endblock %}
+</div>
